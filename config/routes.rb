@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  #API routes
+  get 'products/myproducts' => 'products#myproducts'
+  #----------------
+
   get 'users/sign_up' => 'products#index'
   devise_for :users
   resources :users, only:[:index, :new, :create, :edit, :update, :destroy]

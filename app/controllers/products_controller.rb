@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
-	before_action :authenticate_user!, only:[:index, :myproducts, :new, :create, :edit, :update, :destroy, :show]
+	before_action :authenticate_user!, only:[:index, :new, :create, :edit, :update, :destroy, :show]
 	def myproducts
-		user = User.find(params[:user])
+		user = User.find(params[:user_id])
 		@products = user.products
 
 		render json: @products
