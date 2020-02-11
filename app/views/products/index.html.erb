@@ -1,0 +1,52 @@
+<div class="col-lg-12 col-md-12 col-sm-12">
+	<h3>PRODUTOS</h3>
+</div>
+
+<div class="col-lg-12 col-md-12 col-sm-12">
+	<input type="text" id="search" placeholder="Buscar Produto" style="float: right; margin-bottom: 1em;">
+	
+	<table class="table table-bordered" style="margin-top: 1em;">
+		<thead>
+			<th>ID</th>
+			<th>NOME</th>
+			<th>DESCRIÇAO</th>
+			<th>PREÇO</th>
+			<th>CATEGORIA</th>
+			<th>ATIVO?</th>
+			<th></th>
+		</thead>
+		<tbody id="table">
+			<% @products.each do |product| %>
+			<tr>
+				<td><%= product.id %></td>
+				<td><%= product.name %></td>
+				<td><%= product.description %></td>
+				<td><%= money_br product.price %></td>
+				<td><%= product.category.name %></td>
+					<td>
+					<% if product.active == true %>
+						sim
+					<% else %>
+						não
+					<% end %>
+				</td>
+				<td class="options">
+					<%= link_to product_path(product) do %>
+						<i class="fa fa-eye"></i>
+					<% end %>
+					<%= link_to edit_product_path(product) do %>
+						<i class="fa fa-pencil"></i>
+					<% end %>
+					<%= link_to product_path(product), method: :delete, data:{confirm: 'Excluir esse produto?'} do %>
+						<i class="fa fa-trash"></i>
+					<% end %>
+				</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<script>
+	search_table();
+</script>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VirtualShowcase</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if signed_in? %>
+    <header class="col-lg-12 col-md-12 col-sm-12 header">
+      <div class="h-left">
+        <span><%= link_to (image_tag 'mdev.png', width: '70px'), root_path %></span>
+      </div>
+      <div class="h-center">
+        <span>virtual showcase</span>
+      </div>
+      <div class="h-right">
+          <span id="btn-account-menu"><%= current_user.email %> <i class="fa fa-user user-icon"></i></span>
+          <ul id="account-menu" class="account-menu">
+            <li><%= link_to :sair, destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to 'alterar senha', edit_password_user_path(current_user) %></li>
+          </ul>
+      </div>
+    </header>
+    <div class="sub-header">
+      <span id="btn-product-menu">Produtos <i class="fa fa-angle-down"></i> </span>
+      <ul id="product-menu" class="product-menu">
+        <li><%= link_to 'Novo Produto', new_product_path %></li>
+        <li><%= link_to 'Todos Produtos', root_path %></li>
+      </ul>
+      <span id="btn-category-menu" style="margin-left: 1em;">Categorias <i class="fa fa-angle-down"></i> </span>
+      <ul id="category-menu" class="category-menu">
+        <li><%= link_to 'Nova Categoria', new_category_path %></li>
+        <li><%= link_to 'Todas Categorias', categories_path %></li>
+      </ul>
+      <% if current_user.admin == true %>
+        <span id="btn-user-menu" style="margin-left: 1em;">Usuários <i class="fa fa-angle-down"></i> </span>
+        <ul id="user-menu" class="user-menu">
+          <li><%= link_to 'Novo Usuário', new_user_path %></li>
+          <li><%= link_to 'Todos Usuários', users_path %></li>
+        </ul>
+      <% end %>
+    </div> <br>
+    <% end %>
+
+    <div class="container-primary">
+      <% if flash[:notice] %>
+        <div class="alert alert-info">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <%= yield %>
+    </div>
+
+    <script>
+      var i = 0;
+      $('#btn-product-menu').click( function(){
+        if (i == 0) {
+          $('.product-menu').css({visibility: "visible" });
+          i = 1
+        } else {
+          $('.product-menu').css({visibility: "hidden" });
+          i = 0
+        } 
+      });﻿
+
+      var y = 0;
+      $('#btn-category-menu').click( function(){
+        if (y == 0) {
+          $('.category-menu').css({visibility: "visible" });
+          y = 1
+        } else {
+          $('.category-menu').css({visibility: "hidden" });
+          y = 0
+        } 
+      });﻿
+
+      var x = 0;
+      $('#btn-account-menu').click( function(){
+        if (x == 0) {
+          $('.account-menu').css({visibility: "visible" });
+          x = 1
+        } else {
+          $('.account-menu').css({visibility: "hidden" });
+          x = 0
+        } 
+      });﻿
+
+      var x = 0;
+      $('#btn-user-menu').click( function(){
+        if (x == 0) {
+          $('.user-menu').css({visibility: "visible" });
+          x = 1
+        } else {
+          $('.user-menu').css({visibility: "hidden" });
+          x = 0
+        } 
+      });﻿
+    </script>
+  </body>
+</html>
